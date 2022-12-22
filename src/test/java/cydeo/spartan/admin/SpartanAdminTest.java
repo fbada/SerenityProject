@@ -5,6 +5,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.junit5.SerenityTest;
+import net.serenitybdd.rest.Ensure;
 import net.serenitybdd.rest.SerenityRest;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -27,14 +28,15 @@ public class SpartanAdminTest {
     @Test
     public void test1() {
 
-        Response response = given().accept(ContentType.JSON)
+        given().accept(ContentType.JSON)
                 .auth().basic("admin", "admin").
-                when().get("/api/spartans").prettyPeek();
+                when().get("/api/spartans").prettyPeek()
+                .then().statusCode(200);
 
 
-        System.out.println("response.path(\"id[0]\") = " + response.path("id[0]"));
+      //  System.out.println("response.path(\"id[0]\") = " + response.path("id[0]"));
 
-        System.out.println("response.statusCode() = " + response.statusCode());
+      //  System.out.println("response.statusCode() = " + response.statusCode());
 
     }
 
@@ -58,6 +60,28 @@ public class SpartanAdminTest {
 
         //JSONPATH
         System.out.println("lastResponse().jsonPath().getInt(\"id\") = " + lastResponse().jsonPath().getInt("id"));
+
+
+        // ASSERTIONS IN SERENITY WAY
+        /*
+            Ensure.that --> it is method that comes from Serenity to put asssertions into Serenity Report in a good way
+                             Descriptionn --> will appear into report just like a step information
+                             vRes->vRes.statusCode(200) --> it will validate resposne based on provided assertions
+
+
+         */
+
+        Ensure.that("Status code is 200",vRes->vRes.statusCode(200));
+        Ensure.that("Status code is 200",then->then.statusCode(200));
+        Ensure.that("Status code is 200",x->x.statusCode(200));
+
+        // Ensure that content type is CONTENT TYPE JSON
+
+        // Ensure that ID  is 45
+
+
+
+
 
 
     }
