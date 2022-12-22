@@ -2,7 +2,9 @@ package cydeo.spartan.admin;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.junit5.SerenityTest;
+import net.serenitybdd.rest.SerenityRest;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,4 +28,20 @@ public class SpartanAdminTest {
         when().get("/api/spartans").prettyPeek();
 
     }
+
+    @DisplayName("GET /spartans with SERENITY REST")
+    @Test
+    public void test2(){
+        SerenityRest.given().accept(ContentType.JSON)
+                .auth().basic("admin","admin")
+                .pathParam("id",45)
+        .when().get("/api/spartans/{id}").prettyPeek();
+
+    }
+
+
+
+
+
+
 }
