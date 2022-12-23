@@ -37,11 +37,23 @@
             <version>5.8.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.24</version>
+            <scope>test</scope>
+        </dependency>
         <!--Junit 5 support for serenity -->
         <dependency>
             <groupId>io.github.fabianlinz</groupId>
             <artifactId>serenity-junit5</artifactId>
             <version>1.6.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.1</version>
         </dependency>
 
         <dependency>

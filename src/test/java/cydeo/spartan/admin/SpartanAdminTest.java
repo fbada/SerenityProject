@@ -1,5 +1,6 @@
 package cydeo.spartan.admin;
 
+import Utilities.SpartanTestBase;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -13,16 +14,14 @@ import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static net.serenitybdd.rest.SerenityRest.lastResponse;
+import static org.hamcrest.Matchers.equalTo;
 
 
 @SerenityTest
-public class SpartanAdminTest {
+public class SpartanAdminTest extends SpartanTestBase {
 
 
-    @BeforeAll
-    public static  void init(){
-        RestAssured.baseURI = "http://44.211.222.236:7000";
-    }
+
 
     @DisplayName("GET /spartans with PURE REST ASSURED")
     @Test
@@ -30,7 +29,7 @@ public class SpartanAdminTest {
 
         given().accept(ContentType.JSON)
                 .auth().basic("admin", "admin").
-                when().get("/api/spartans").prettyPeek()
+                when().get("/spartans").prettyPeek()
                 .then().statusCode(200);
 
 
@@ -45,8 +44,8 @@ public class SpartanAdminTest {
     public void test2(){
         SerenityRest.given().accept(ContentType.JSON)
                 .auth().basic("admin","admin")
-                .pathParam("id",45)
-        .when().get("/api/spartans/{id}").prettyPeek();
+                .pathParam("id",3)
+        .when().get("/spartans/{id}").prettyPeek();
 
 
         // lastResponse --> response --> Serenity Rest will generate after sending request and store resposne information
@@ -76,14 +75,11 @@ public class SpartanAdminTest {
         Ensure.that("Status code is 200",x->x.statusCode(200));
 
         // Ensure that content type is CONTENT TYPE JSON
+        Ensure.that("Content type is JSON",vRes->vRes.contentType(ContentType.JSON));
+
 
         // Ensure that ID  is 45
-
-
-
-
-
-
+        Ensure.that("ID is 45",vRes->vRes.body("id",equalTo(3)));
     }
 
 }
