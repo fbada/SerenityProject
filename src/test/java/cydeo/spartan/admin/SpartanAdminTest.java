@@ -70,16 +70,15 @@ public class SpartanAdminTest extends SpartanTestBase {
 
          */
 
-        Ensure.that("Status code is 200",vRes->vRes.statusCode(200));
-        Ensure.that("Status code is 200",then->then.statusCode(200));
+
         Ensure.that("Status code is 200",x->x.statusCode(200));
 
         // Ensure that content type is CONTENT TYPE JSON
-        Ensure.that("Content type is JSON",vRes->vRes.contentType(ContentType.JSON));
+        Ensure.that("Content type is JSON",x->x.contentType(ContentType.JSON));
 
 
         // Ensure that ID  is 45
-        Ensure.that("ID is 45",vRes->vRes.body("id",equalTo(3)));
+        Ensure.that("ID is 3",x->x.body("id",equalTo(3)));
     }
 
 }
