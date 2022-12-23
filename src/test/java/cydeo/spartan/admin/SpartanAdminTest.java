@@ -21,44 +21,42 @@ import static org.hamcrest.Matchers.equalTo;
 public class SpartanAdminTest extends SpartanTestBase {
 
 
-
-
     @DisplayName("GET /spartans with PURE REST ASSURED")
     @Test
     public void test1() {
 
-        given().accept(ContentType.JSON)
-                .auth().basic("admin", "admin").
-                when().get("/spartans").prettyPeek()
-                .then().statusCode(200);
+        given ().accept ( ContentType.JSON )
+                .auth ().basic ( "admin", "admin" ).
+                when ().get ( "/spartans" ).prettyPeek ()
+                .then ().statusCode ( 200 );
 
 
-      //  System.out.println("response.path(\"id[0]\") = " + response.path("id[0]"));
+        //  System.out.println("response.path(\"id[0]\") = " + response.path("id[0]"));
 
-      //  System.out.println("response.statusCode() = " + response.statusCode());
+        //  System.out.println("response.statusCode() = " + response.statusCode());
 
     }
 
     @DisplayName("GET /spartans with SERENITY REST")
     @Test
-    public void test2(){
-        SerenityRest.given().accept(ContentType.JSON)
-                .auth().basic("admin","admin")
-                .pathParam("id",3)
-        .when().get("/spartans/{id}").prettyPeek();
+    public void test2() {
+        SerenityRest.given ().accept ( ContentType.JSON )
+                .auth ().basic ( "admin", "admin" )
+                .pathParam ( "id", 3 )
+                .when ().get ( "/spartans/{id}" ).prettyPeek ();
 
 
         // lastResponse --> response --> Serenity Rest will generate after sending request and store resposne information
         // without saving in a variable
-        lastResponse();
+        lastResponse ();
 
-        System.out.println("lastResponse().statusCode() = " + lastResponse().statusCode());
+        System.out.println ( "lastResponse().statusCode() = " + lastResponse ().statusCode () );
 
         //RESPONSE
-        System.out.println("lastResponse().path(\"id\") = " + lastResponse().path("id"));
+        System.out.println ( "lastResponse().path(\"id\") = " + lastResponse ().path ( "id" ) );
 
         //JSONPATH
-        System.out.println("lastResponse().jsonPath().getInt(\"id\") = " + lastResponse().jsonPath().getInt("id"));
+        System.out.println ( "lastResponse().jsonPath().getInt(\"id\") = " + lastResponse ().jsonPath ().getInt ( "id" ) );
 
 
         // ASSERTIONS IN SERENITY WAY
@@ -71,14 +69,14 @@ public class SpartanAdminTest extends SpartanTestBase {
          */
 
 
-        Ensure.that("Status code is 200",x->x.statusCode(200));
+        Ensure.that ( "Status code is 200", x -> x.statusCode ( 200 ) );
 
         // Ensure that content type is CONTENT TYPE JSON
-        Ensure.that("Content type is JSON",x->x.contentType(ContentType.JSON));
+        Ensure.that ( "Content type is JSON", x -> x.contentType ( ContentType.JSON ) );
 
 
         // Ensure that ID  is 45
-        Ensure.that("ID is 3",x->x.body("id",equalTo(3)));
+        Ensure.that ( "ID is 3", x -> x.body ( "id", equalTo ( 3 ) ) );
     }
 
 }

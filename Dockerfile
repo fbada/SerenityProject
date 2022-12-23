@@ -2,7 +2,7 @@ FROM openjdk:11-jdk-slim
 
 # Install Maven and ChromeDriver
 RUN apt-get update && apt-get install -y curl tar unzip
-ARG MAVEN_VERSION=3.6.3
+ARG MAVEN_VERSION=3.8.6
 ARG USER_HOME_DIR="/root"
 RUN mkdir -p /usr/share/maven && \
 curl -fsSL http://apache.osuosl.org/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz |  \
@@ -16,13 +16,15 @@ RUN curl -fsSL https://chromedriver.storage.googleapis.com/87.0.4280.20/chromedr
 
 
 # Set the working directory
-WORKDIR /app
+WORKDIR app
 
 # Copy the project files
 COPY . .
+#expose port 4444
+EXPOSE 4444
 
 # Build the project
 RUN mvn clean install
 
 # Set the entrypoint to run the tests
-ENTRYPOINT mvn verify
+#ENTRYPOINT mvn clean verify
